@@ -3105,7 +3105,8 @@ class MoveRight extends BaseMovement {
   keys = ["l"];
 
   public async execAction(position: Position, vimState: VimState): Promise<Position> {
-    return new Position(position.line, position.character + 1);
+    let posRight = position.getRight();
+    return posRight.isLineEnd() && vimState.currentMode === ModeName.Visual ? position : posRight;
   }
 }
 
